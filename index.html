@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="theme-color" content="#E63946"/>
+  <title>🎂 Chúc Mừng Sinh Nhật! 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Falling petals container -->
+  <div id="petals-container"></div>
+
+  <!-- Floating bubbles -->
+  <div id="bubbles-container"></div>
+
+  <!-- Header -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="tomato-icons">
+        <span class="tomato bounce">🍅</span>
+        <span class="tomato bounce delay1">🍅</span>
+        <span class="tomato bounce delay2">🍅</span>
+      </div>
+      <h1 class="title glow">🎉 Chúc Mừng Sinh Nhật! 🎉</h1>
+      <p class="subtitle">Một ngày thật đặc biệt dành cho bé 💖</p>
+      <div class="cake-wrapper">
+        <div class="cake-container" id="cakeContainer">
+          <!-- Birthday Cake SVG -->
+          <svg id="birthdayCake" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Candles -->
+            <rect x="55" y="40" width="8" height="30" rx="4" fill="#FF6B9D"/>
+            <rect x="80" y="30" width="8" height="40" rx="4" fill="#FF9F1C"/>
+            <rect x="105" y="35" width="8" height="35" rx="4" fill="#9B59B6"/>
+            <rect x="130" y="40" width="8" height="30" rx="4" fill="#FF6B9D"/>
+            <!-- Flames -->
+            <ellipse cx="59" cy="37" rx="5" ry="8" fill="#FFD700" opacity="0.9" class="flame flame1"/>
+            <ellipse cx="84" cy="27" rx="5" ry="8" fill="#FF6600" opacity="0.9" class="flame flame2"/>
+            <ellipse cx="109" cy="32" rx="5" ry="8" fill="#FFD700" opacity="0.9" class="flame flame3"/>
+            <ellipse cx="134" cy="37" rx="5" ry="8" fill="#FF6600" opacity="0.9" class="flame flame4"/>
+            <!-- Top layer cake -->
+            <rect x="40" y="70" width="120" height="40" rx="10" fill="#FF8FAB"/>
+            <rect x="40" y="70" width="120" height="12" rx="10" fill="#FF6B9D"/>
+            <!-- Middle layer -->
+            <rect x="25" y="110" width="150" height="45" rx="10" fill="#FFB3C6"/>
+            <rect x="25" y="110" width="150" height="12" rx="10" fill="#FF85A1"/>
+            <!-- Bottom layer -->
+            <rect x="10" y="155" width="180" height="50" rx="10" fill="#FF8FAB"/>
+            <rect x="10" y="155" width="180" height="12" rx="10" fill="#FF6B9D"/>
+            <!-- Plate -->
+            <ellipse cx="100" cy="205" rx="95" ry="10" fill="#FFCCD5" opacity="0.8"/>
+            <!-- Decorations on cake -->
+            <circle cx="60" cy="130" r="8" fill="#FF4D6D"/>
+            <circle cx="85" cy="125" r="6" fill="#FFD700"/>
+            <circle cx="115" cy="128" r="7" fill="#FF4D6D"/>
+            <circle cx="140" cy="124" r="5" fill="#9B59B6"/>
+            <!-- Stars/sparkles -->
+            <text x="70" y="148" font-size="12" fill="#FF4D6D">★</text>
+            <text x="100" y="150" font-size="10" fill="#FFD700">★</text>
+            <text x="120" y="147" font-size="11" fill="#FF4D6D">★</text>
+            <!-- Text on cake -->
+            <text x="100" y="95" text-anchor="middle" font-size="11" fill="white" font-family="'Dancing Script'" font-weight="bold">Happy</text>
+            <text x="100" y="175" text-anchor="middle" font-size="13" fill="white" font-family="'Dancing Script'" font-weight="bold">Birthday!</text>
+          </svg>
+          <div class="sparkles" id="sparkles"></div>
+        </div>
+        <button class="blow-btn" onclick="blowCandles()">🌬️ Thổi nến!</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Music Player -->
+  <div class="music-player" id="musicPlayer">
+    <div class="music-icon" id="musicIcon">🎵</div>
+    <div class="music-info">
+      <span id="musicTitle">Nhạc sinh nhật</span>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+    <div class="music-controls">
+      <button onclick="toggleMusic()" id="playBtn" title="Phát/Dừng">▶</button>
+      <button onclick="toggleMute()" id="muteBtn" title="Tắt tiếng">🔊</button>
+    </div>
+    <audio id="bgMusic" loop>
+      <source src="music/birthday.mp3" type="audio/mpeg"/>
+      <source src="music/birthday.ogg" type="audio/ogg"/>
+    </audio>
+    <!-- <div class="music-note-tip">📁 Đặt file nhạc vào thư mục <code>music/</code></div> -->
+  </div>
+
+  <!-- Wish message -->
+  <section class="wish-section">
+    <div class="wish-card">
+      <div class="wish-icon">💌</div>
+      <h2>Lời Chúc Từ Trái Tim</h2>
+      <p class="wish-text" id="wishText"></p>
+      <div class="wish-tomatoes">
+        <span>🍅</span><span>💕</span><span>🍅</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Heart Slider -->
+  <section class="slider-section">
+    <h2 class="section-title">💝 Khoảnh Khắc Đáng Nhớ 💝</h2>
+    <!-- <p class="slider-note"></p> -->
+
+    <div class="heart-slider-wrapper">
+      <!-- Heart shape SVG clip path -->
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <clipPath id="heartClip" clipPathUnits="objectBoundingBox">
+            <path d="M0.5,0.9 C0.5,0.9 0,0.6 0,0.3 C0,0.13 0.13,0 0.3,0 C0.38,0 0.46,0.04 0.5,0.1 C0.54,0.04 0.62,0 0.7,0 C0.87,0 1,0.13 1,0.3 C1,0.6 0.5,0.9 0.5,0.9 Z"/>
+          </clipPath>
+        </defs>
+      </svg>
+
+      <div class="heart-frame">
+        <div class="heart-shape" id="heartSlider">
+          <!-- Slides will be injected here -->
+        </div>
+        <div class="heart-overlay-text">💖</div>
+      </div>
+
+      <div class="slider-controls">
+        <button class="slider-btn prev-btn" onclick="prevSlide()">&#10094;</button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn next-btn" onclick="nextSlide()">&#10095;</button>
+      </div>
+      <div class="slide-counter">
+        <span id="currentSlide">1</span> / <span id="totalSlides">1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating hearts animation -->
+  <section class="hearts-section">
+    <div class="floating-hearts" id="floatingHearts"></div>
+    <div class="message-balloon">
+      <h3>🎈 Chúc bé mãi mãi hạnh phúc! 🎈</h3>
+      <p>Tuổi mới, niềm vui mới, thành công mới! 🍅✨</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-icons">
+      <span>🍅</span><span>💖</span><span>🎂</span><span>💖</span><span>🍅</span>
+    </div>
+    <p>Được tạo với 💕 &amp; 🍅 cho ngày đặc biệt của bé</p>
+    <p class="footer-year">🎉 Happy Birthday! 🎉</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
